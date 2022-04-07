@@ -1,16 +1,17 @@
-package com.dankknightkh.bbinit.command;
+package com.dankknightkh.bbinit.command.impl;
 
+import com.dankknightkh.bbinit.command.Command;
 import com.dankknightkh.bbinit.communicator.Speaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class NoSuchCommandCommand implements Command {
+public class CommandNoSuchCommand implements Command {
 
     private final Speaker speaker;
 
     @Autowired
-    public NoSuchCommandCommand(Speaker speaker) {
+    public CommandNoSuchCommand(Speaker speaker) {
         this.speaker = speaker;
     }
 

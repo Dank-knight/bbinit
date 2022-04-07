@@ -1,0 +1,5 @@
+cd ..
+cd {platformFolderName}
+cd platform
+mvn -pl edge package -Prun-edge
+PAUSE

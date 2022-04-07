@@ -1,3 +1,0 @@
-some text line
-another text line
-last text line.

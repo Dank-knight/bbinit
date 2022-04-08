@@ -1,10 +1,12 @@
 package com.dankknightkh.bbinit;
 
 import com.dankknightkh.bbinit.command.catalog.CommandCatalog;
+import com.dankknightkh.bbinit.util.common.PlatformUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BbInitApplication implements CommandLineRunner {
 
-
     private static final String COMMAND_ALIAS = "c";
+    public static final String PLATFORM_FOLDER_ALIAS = "p";
 
     private final CommandCatalog catalog;
 
@@ -35,10 +37,22 @@ public class BbInitApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws ParseException {
         Options options = new Options();
-        options.addOption(COMMAND_ALIAS, true, "command name");
+        options.addOption(Option.builder(PLATFORM_FOLDER_ALIAS)
+                .longOpt("platform_folder")
+                .hasArg(true)
+                .desc("The folder where the platform is located").build());
+
+        options.addOption(Option.builder(COMMAND_ALIAS)
+                .longOpt("command_name")
+                .hasArg(true)
+                .required(true)
+                .desc("command name").build());
+
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(options, args);
-
+        if (cmd.hasOption(PLATFORM_FOLDER_ALIAS)) {
+            PlatformUtil.setValue("platform_folder", cmd.getOptionValue(PLATFORM_FOLDER_ALIAS));
+        }
         if (isCommandValid(cmd)) {
             catalog.getCommandByName(cmd.getOptionValue(COMMAND_ALIAS)).executeCommand();
         } else {

@@ -1,8 +1,8 @@
 package com.dankknightkh.bbinit.command.impl;
 
 import com.dankknightkh.bbinit.command.Command;
-import com.dankknightkh.bbinit.communicator.Recorder;
 import com.dankknightkh.bbinit.communicator.Speaker;
+import com.dankknightkh.bbinit.util.common.PlatformUtil;
 import com.dankknightkh.bbinit.util.file.BatFileCreator;
 import com.dankknightkh.bbinit.util.resource.ResourceHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -26,13 +25,11 @@ public class CommandSetupStarter implements Command {
     private static final String PREPARED_STARTER_RUN_SCRIPT = "prepscript/starter.txt";
 
     private final Speaker speaker;
-    private final Recorder recorder;
     private final BatFileCreator batFileCreator;
 
     @Autowired
-    public CommandSetupStarter(Speaker speaker, Recorder recorder, BatFileCreator batFileCreator) {
+    public CommandSetupStarter(Speaker speaker, BatFileCreator batFileCreator) {
         this.speaker = speaker;
-        this.recorder = recorder;
         this.batFileCreator = batFileCreator;
     }
 
@@ -40,11 +37,15 @@ public class CommandSetupStarter implements Command {
     public void executeCommand() {
         sayCurrentDirectory();
         sayWhereTheFileShouldBe();
-        String platformFolder = askForNameOfBackBasePlatformFolder();
-        createDockerComposeUpBatFile(platformFolder);
-        createPlatformBladeRunFile(platformFolder);
-        createPlatformEdgeRunFile(platformFolder);
-        createOrchestratorBat();
+        String platformFolderName = PlatformUtil.getValue("platform_folder");
+        if (platformFolderName != null) {
+            createDockerComposeUpBatFile(platformFolderName);
+            createPlatformBladeRunFile(platformFolderName);
+            createPlatformEdgeRunFile(platformFolderName);
+            createOrchestratorBat();
+        } else {
+            speaker.speak("You should execute this command after platform folder is set!");
+        }
     }
 
     private void sayCurrentDirectory() {
@@ -54,20 +55,6 @@ public class CommandSetupStarter implements Command {
     private void sayWhereTheFileShouldBe() {
         speaker.speak("The jar should be executed from folder at the same lvl " +
                 "where downloaded folder with bb platform lays!");
-    }
-
-    private String askForNameOfBackBasePlatformFolder() {
-        while (true) {
-            speaker.speak("Type name of backbase platform folder. The folder where 'cxs', 'dbs', 'platform'," +
-                    " 'statics' folders are.");
-            String platformFolderName = recorder.recordInput();
-            speaker.speak("Did you spell it correct? " + platformFolderName);
-            speaker.speak("Type y/n");
-            String isFolderNameSpelledCorrectly = recorder.recordInput().toLowerCase(Locale.ROOT);
-            if (isFolderNameSpelledCorrectly.equals("y")) {
-                return platformFolderName;
-            }
-        }
     }
 
     private void createDockerComposeUpBatFile(String platformFolderName) {

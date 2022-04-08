@@ -18,10 +18,9 @@ public class BatFileCreator {
         this.speaker = speaker;
     }
 
-    public File createFile(String fileName) {
-        File myObj = null;
+    public void createFile(String fileName) {
         try {
-            myObj = new File(fileName);
+            File myObj = new File(fileName);
             if (myObj.createNewFile()) {
                 speaker.speak("File created: " + myObj.getName());
             } else {
@@ -30,7 +29,6 @@ public class BatFileCreator {
         } catch (IOException e) {
             speaker.speak("An error occurred during docker running bat file creation.");
         }
-        return myObj;
     }
 
     public void writeCommandToFile(String fileName, String batFileContent) {

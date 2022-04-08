@@ -1,0 +1,5 @@
+cd ..
+cd {platformFolderName}
+cd platform
+mvn blade:run
+PAUSE

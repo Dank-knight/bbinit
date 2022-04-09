@@ -45,7 +45,6 @@ public class BbInitApplication implements CommandLineRunner {
         options.addOption(Option.builder(COMMAND_ALIAS)
                 .longOpt("command_name")
                 .hasArg(true)
-                .required(true)
                 .desc("command name").build());
 
         CommandLineParser parser = new DefaultParser();

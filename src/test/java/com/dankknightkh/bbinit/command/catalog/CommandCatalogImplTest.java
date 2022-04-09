@@ -15,6 +15,7 @@ import static org.mockito.Mockito.mock;
 
 class CommandCatalogImplTest {
 
+    public static final int NUMBER_OF_COMMANDS_KEYS_AT_THE_MOMENT_OF_TEST_WRITING = 4;
     private final CommandNoSuchCommand noSuchCommand = mock(CommandNoSuchCommand.class);
     private final CommandCheckRequirements checkRequirementsCommand = mock(CommandCheckRequirements.class);
     private final CommandSetupStarter setupStarterCommand = mock(CommandSetupStarter.class);
@@ -30,7 +31,24 @@ class CommandCatalogImplTest {
 
     @Test
     void whenGetCommandByNameExecutedWithProperCommandName_CatalogReturnsCommandInstance() {
-        Command noCommand = catalog.getCommandByName("noCommand");
+        Command noCommand = catalog.getCommandByName("setup");
+        assertThat(noCommand, is(instanceOf(CommandSetupStarter.class)));
+    }
+
+    @Test
+    void whenGetCommandByNameExecutedWithNonExistentCommandName_CatalogReturnsNoSuchCommandInstance() {
+        Command noCommand = catalog.getCommandByName("invalidCommandName");
         assertThat(noCommand, is(instanceOf(CommandNoSuchCommand.class)));
+    }
+
+    @Test
+    void whenGetCommandByNameExecutedWithNullCommandName_CatalogReturnsNoSuchCommandInstance() {
+        Command noCommand = catalog.getCommandByName(null);
+        assertThat(noCommand, is(instanceOf(CommandNoSuchCommand.class)));
+    }
+
+    @Test
+    void whenGetCommandsExecuted_CatalogReturnsAllCommands() {
+        assertThat(catalog.getCommandKeys().size(), is(NUMBER_OF_COMMANDS_KEYS_AT_THE_MOMENT_OF_TEST_WRITING));
     }
 }

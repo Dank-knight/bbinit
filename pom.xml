@@ -18,7 +18,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <commons-cli-version>20040117.000000</commons-cli-version>
+        <commons-cli-version>1.5.0</commons-cli-version>
         <org.hamcrest.library.version>2.2</org.hamcrest.library.version>
         <jacoco.version>0.8.8</jacoco.version>
     </properties>

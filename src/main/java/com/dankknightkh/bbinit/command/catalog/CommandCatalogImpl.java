@@ -32,7 +32,7 @@ public class CommandCatalogImpl implements CommandCatalog {
     }
 
     @PostConstruct
-    private void initCommands() {
+    protected void initCommands() {
         commands.put("noCommand", noSuchCommandCommand);
         commands.put("req", checkRequirementsCommand);
         commands.put("setup", setupStarterCommand);

@@ -20,6 +20,7 @@ public class BbInitApplication implements CommandLineRunner {
 
     private static final String COMMAND_ALIAS = "c";
     public static final String PLATFORM_FOLDER_ALIAS = "p";
+    public static final String ST = "st";
 
     private final CommandCatalog catalog;
 
@@ -36,6 +37,28 @@ public class BbInitApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws ParseException {
+        CommandLine cmd = setupCoomanLoneOptions(args);
+        if (cmd.hasOption(PLATFORM_FOLDER_ALIAS)) {
+            PlatformUtil.setValue("platform_folder", cmd.getOptionValue(PLATFORM_FOLDER_ALIAS));
+        }
+        if (isCommandValid(cmd)) {
+            catalog.getCommandByName(cmd.getOptionValue(COMMAND_ALIAS)).executeCommand();
+        } else {
+            catalog.getCommandByName("noCommand").executeCommand();
+        }
+        if (cmd.hasOption(ST)) {
+            catalog.getCommandByName("start").executeCommand();
+        }
+    }
+
+    private CommandLine setupCoomanLoneOptions(String[] args) throws ParseException {
+        Options options = setUpCommandLineOptions();
+
+        CommandLineParser parser = new DefaultParser();
+        return parser.parse(options, args);
+    }
+
+    private Options setUpCommandLineOptions() {
         Options options = new Options();
         options.addOption(Option.builder(PLATFORM_FOLDER_ALIAS)
                 .longOpt("platform_folder")
@@ -47,17 +70,11 @@ public class BbInitApplication implements CommandLineRunner {
                 .hasArg(true)
                 .desc("command name").build());
 
-        CommandLineParser parser = new DefaultParser();
-        CommandLine cmd = parser.parse(options, args);
-        if (cmd.hasOption(PLATFORM_FOLDER_ALIAS)) {
-            PlatformUtil.setValue("platform_folder", cmd.getOptionValue(PLATFORM_FOLDER_ALIAS));
-        }
-        if (isCommandValid(cmd)) {
-            catalog.getCommandByName(cmd.getOptionValue(COMMAND_ALIAS)).executeCommand();
-        } else {
-            catalog.getCommandByName("noCommand").executeCommand();
-        }
-
+        options.addOption(Option.builder(ST)
+                .longOpt("start")
+                .hasArg(false)
+                .desc("start the application").build());
+        return options;
     }
 
     private boolean isCommandValid(CommandLine cmd) {

@@ -1,29 +1,27 @@
-package com.dankknightkh.bbinit.util;
+package com.dankknightkh.bbinit.util.common;
 
-import com.dankknightkh.bbinit.util.resource.ResourceHandler;
 import org.junit.jupiter.api.Test;
 
-import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.isA;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class ResourceHandlerTest {
+class PlatformUtilTest {
 
     @Test
-    void testGetResourceFileAsInputStream() {
-        InputStream resourceFileAsInputStream = ResourceHandler.getResourceFileAsInputStream("prepscript/test.txt");
-        assertNotNull(resourceFileAsInputStream);
+    void testPlatformUtilSetValue() {
+        PlatformUtil.setValue("test", "test");
+        assertThat(PlatformUtil.getValue("test"), equalTo("test"));
     }
 
     @Test
     void privateConstructorTest() throws NoSuchMethodException, InstantiationException, IllegalAccessException {
-        Constructor<ResourceHandler> constructor = ResourceHandler.class.getDeclaredConstructor();
+        Constructor<PlatformUtil> constructor = PlatformUtil.class.getDeclaredConstructor();
         assertTrue(Modifier.isPrivate(constructor.getModifiers()));
         constructor.setAccessible(true);
         Throwable currentException = null;
@@ -35,5 +33,6 @@ class ResourceHandlerTest {
 
         assertThat(currentException, isA(InvocationTargetException.class));
         assertThat(currentException != null ? currentException.getCause() : null, isA(IllegalStateException.class));
+
     }
 }

@@ -1,12 +1,13 @@
 package com.dankknightkh.bbinit.util.common;
 
-import lombok.experimental.UtilityClass;
-
 import java.util.HashMap;
 import java.util.Map;
 
-@UtilityClass
 public class PlatformUtil {
+
+    private PlatformUtil() {
+        throw new IllegalStateException("Utility class");
+    }
 
     private static final Map<String, String> platformFoldersMap = new HashMap<>();
 

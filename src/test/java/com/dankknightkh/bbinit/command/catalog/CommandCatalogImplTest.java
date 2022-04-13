@@ -2,6 +2,7 @@ package com.dankknightkh.bbinit.command.catalog;
 
 import com.dankknightkh.bbinit.command.Command;
 import com.dankknightkh.bbinit.command.impl.CommandCheckRequirements;
+import com.dankknightkh.bbinit.command.impl.CommandKillEdgeProcess;
 import com.dankknightkh.bbinit.command.impl.CommandNoSuchCommand;
 import com.dankknightkh.bbinit.command.impl.CommandSetupStarter;
 import com.dankknightkh.bbinit.command.impl.CommandStartBePlatform;
@@ -20,12 +21,14 @@ class CommandCatalogImplTest {
     private final CommandCheckRequirements checkRequirementsCommand = mock(CommandCheckRequirements.class);
     private final CommandSetupStarter setupStarterCommand = mock(CommandSetupStarter.class);
     private final CommandStartBePlatform startBePlatformCommand = mock(CommandStartBePlatform.class);
+    private final CommandKillEdgeProcess killEdgeProcessCommand = mock(CommandKillEdgeProcess.class);
 
     private CommandCatalogImpl catalog;
 
     @BeforeEach
     void setUp() {
-        catalog = new CommandCatalogImpl(noSuchCommand, checkRequirementsCommand, setupStarterCommand, startBePlatformCommand);
+        catalog = new CommandCatalogImpl(noSuchCommand, checkRequirementsCommand, setupStarterCommand,
+                startBePlatformCommand, killEdgeProcessCommand);
         catalog.initCommands();
     }
 

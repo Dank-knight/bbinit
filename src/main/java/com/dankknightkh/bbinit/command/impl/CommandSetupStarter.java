@@ -19,10 +19,11 @@ import java.util.stream.Collectors;
 public class CommandSetupStarter implements Command {
 
     private static final String PREPARED_DOCKER_COMPOSE_UP_SCRIPT = "prepscript/docker_compose_up.txt";
-    public static final String PLATFORM_FOLDER_NAME_PLACEHOLDER = "{platformFolderName}";
+    private static final String PLATFORM_FOLDER_NAME_PLACEHOLDER = "{platformFolderName}";
     private static final String PREPARED_BLADE_RUN_SCRIPT = "prepscript/blade_run.txt";
     private static final String PREPARED_EDGE_RUN_SCRIPT = "prepscript/edge_run.txt";
     private static final String PREPARED_STARTER_RUN_SCRIPT = "prepscript/starter.txt";
+    private static final String PREPARED_EDGE_PROCESS_KILL_SCRIPT = "prepscript/kill_edge_process.txt";
 
     private final Speaker speaker;
     private final BatFileCreator batFileCreator;
@@ -43,6 +44,7 @@ public class CommandSetupStarter implements Command {
             createPlatformBladeRunFile(platformFolderName);
             createPlatformEdgeRunFile(platformFolderName);
             createOrchestratorBat();
+            createKillEdgeProcessBat();
         } else {
             speaker.speak("You should execute this command after platform folder is set!");
         }
@@ -96,7 +98,17 @@ public class CommandSetupStarter implements Command {
             String content = readFileAsString(PREPARED_STARTER_RUN_SCRIPT);
             batFileCreator.writeCommandToFile("starter.bat", content);
         } catch (IOException e) {
-            log.error("An error occurred during blade_run script creation.");
+            log.error("An error occurred during starter script creation.");
+        }
+    }
+
+    private void createKillEdgeProcessBat() {
+        try {
+            batFileCreator.createFile("kill_edge_process.bat");
+            String content = readFileAsString(PREPARED_EDGE_PROCESS_KILL_SCRIPT);
+            batFileCreator.writeCommandToFile("kill_edge_process.bat", content);
+        } catch (IOException e) {
+            log.error("An error occurred during kill_edge_process script creation.");
         }
     }
 

@@ -8,12 +8,12 @@ import java.io.IOException;
 
 @Slf4j
 @Component
-public class CommandStartBePlatform implements Command {
+public class CommandKillEdgeProcess implements Command {
 
     @Override
     public void executeCommand() {
         try {
-            Runtime.getRuntime().exec("cmd /c start \"\" starter.bat");
+            Runtime.getRuntime().exec("cmd /c start \"\" kill_edge_process.bat");
         } catch (IOException e) {
             log.error("Error while executing start be platform command", e);
         }

@@ -2,6 +2,7 @@ package com.dankknightkh.bbinit.command.catalog;
 
 import com.dankknightkh.bbinit.command.Command;
 import com.dankknightkh.bbinit.command.impl.CommandCheckRequirements;
+import com.dankknightkh.bbinit.command.impl.CommandKillEdgeProcess;
 import com.dankknightkh.bbinit.command.impl.CommandNoSuchCommand;
 import com.dankknightkh.bbinit.command.impl.CommandSetupStarter;
 import com.dankknightkh.bbinit.command.impl.CommandStartBePlatform;
@@ -22,13 +23,18 @@ public class CommandCatalogImpl implements CommandCatalog {
     private final CommandCheckRequirements checkRequirementsCommand;
     private final CommandSetupStarter setupStarterCommand;
     private final CommandStartBePlatform startBePlatformCommand;
+    private final CommandKillEdgeProcess killEdgeProcessCommand;
 
     @Autowired
-    public CommandCatalogImpl(CommandNoSuchCommand noSuchCommandCommand, CommandCheckRequirements checkRequirementsCommand, CommandSetupStarter setupStarterCommand, CommandStartBePlatform startBePlatformCommand) {
+    public CommandCatalogImpl(CommandNoSuchCommand noSuchCommandCommand,
+                              CommandCheckRequirements checkRequirementsCommand,
+                              CommandSetupStarter setupStarterCommand, CommandStartBePlatform startBePlatformCommand,
+                              CommandKillEdgeProcess killEdgeProcessCommand) {
         this.noSuchCommandCommand = noSuchCommandCommand;
         this.checkRequirementsCommand = checkRequirementsCommand;
         this.setupStarterCommand = setupStarterCommand;
         this.startBePlatformCommand = startBePlatformCommand;
+        this.killEdgeProcessCommand = killEdgeProcessCommand;
     }
 
     @PostConstruct
@@ -37,6 +43,7 @@ public class CommandCatalogImpl implements CommandCatalog {
         commands.put("req", checkRequirementsCommand);
         commands.put("setup", setupStarterCommand);
         commands.put("start", startBePlatformCommand);
+        commands.put("killEdge", killEdgeProcessCommand);
     }
 
     @Override

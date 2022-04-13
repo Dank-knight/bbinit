@@ -37,7 +37,7 @@ public class BbInitApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws ParseException {
-        CommandLine cmd = setupCoomanLoneOptions(args);
+        CommandLine cmd = setupCommandLineParser(args);
         if (cmd.hasOption(PLATFORM_FOLDER_ALIAS)) {
             PlatformUtil.setValue("platform_folder", cmd.getOptionValue(PLATFORM_FOLDER_ALIAS));
         }
@@ -51,7 +51,7 @@ public class BbInitApplication implements CommandLineRunner {
         }
     }
 
-    private CommandLine setupCoomanLoneOptions(String[] args) throws ParseException {
+    private CommandLine setupCommandLineParser(String[] args) throws ParseException {
         Options options = setUpCommandLineOptions();
 
         CommandLineParser parser = new DefaultParser();

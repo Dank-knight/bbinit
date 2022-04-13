@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class CommandSetupStarter implements Command {
 
     private static final String PREPARED_DOCKER_COMPOSE_UP_SCRIPT = "prepscript/docker_compose_up.txt";
-    private static final String PLATFORM_FOLDER_NAME_PLACEHOLDER = "{platformFolderName}";
+    public static final String PLATFORM_FOLDER_NAME_PLACEHOLDER = "{platformFolderName}";
     private static final String PREPARED_BLADE_RUN_SCRIPT = "prepscript/blade_run.txt";
     private static final String PREPARED_EDGE_RUN_SCRIPT = "prepscript/edge_run.txt";
     private static final String PREPARED_STARTER_RUN_SCRIPT = "prepscript/starter.txt";

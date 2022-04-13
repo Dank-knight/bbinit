@@ -16,7 +16,7 @@ import static org.mockito.Mockito.mock;
 
 class CommandCatalogImplTest {
 
-    public static final int NUMBER_OF_COMMANDS_KEYS_AT_THE_MOMENT_OF_TEST_WRITING = 4;
+    private static final int NUMBER_OF_COMMANDS_KEYS_AT_THE_MOMENT_OF_TEST_WRITING = 5;
     private final CommandNoSuchCommand noSuchCommand = mock(CommandNoSuchCommand.class);
     private final CommandCheckRequirements checkRequirementsCommand = mock(CommandCheckRequirements.class);
     private final CommandSetupStarter setupStarterCommand = mock(CommandSetupStarter.class);

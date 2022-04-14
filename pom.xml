@@ -66,6 +66,15 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/BatFileCreator.*</exclude>
+                    </excludes>
+                    <destFile>${project.basedir}/target/jacoco.exec</destFile>
+                    <dataFile>${project.basedir}/target/jacoco.exec</dataFile>
+                    <outputDirectory>${project.basedir}/target/site/jacoco</outputDirectory>
+                    <append>true</append>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>

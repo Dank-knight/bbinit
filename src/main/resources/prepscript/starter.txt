@@ -1,3 +1,4 @@
 start docker_compose_up.bat
 start platform_blade_run.bat
+start kill_edge_process.bat
 start edge_run.bat

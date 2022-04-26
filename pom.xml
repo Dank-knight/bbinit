@@ -70,6 +70,7 @@
                     <excludes>
                         <exclude>**/BatFileCreator.*</exclude>
                         <exclude>**/CommandStartBePlatform.*</exclude>
+                        <exclude>**/CommandCheckRequirements.*</exclude>
                     </excludes>
                     <destFile>${project.basedir}/target/jacoco.exec</destFile>
                     <dataFile>${project.basedir}/target/jacoco.exec</dataFile>

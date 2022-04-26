@@ -7,11 +7,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @SpringBootTest(args={"-p=training", "-c=noCommand"})
-class BbinitApplicationTests {
+class BBInitApplicationTest {
 
-	@Test
-	void contextLoads() {
-		assertThat(true, is(true));
-	}
+    @Test
+    void contextLoads() {
+        assertThat(true, is(true));
+    }
 
 }

@@ -9,6 +9,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -78,6 +79,6 @@ public class BbInitApplication implements CommandLineRunner {
     }
 
     private boolean isCommandValid(CommandLine cmd) {
-        return cmd.hasOption(COMMAND_ALIAS) && cmd.getOptionValue(COMMAND_ALIAS) != null && catalog.getCommandKeys().contains(cmd.getOptionValue(COMMAND_ALIAS));
+        return cmd.hasOption(COMMAND_ALIAS) && StringUtils.isNoneEmpty(cmd.getOptionValue(COMMAND_ALIAS)) && catalog.getCommandKeys().contains(cmd.getOptionValue(COMMAND_ALIAS));
     }
 }
